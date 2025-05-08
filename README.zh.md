@@ -21,15 +21,20 @@
 
 ```http
 GET /ISAPI/Thermal/channels/2/thermometry/jpegPicWithAppendData?format=json
+```
 
 你只需：
 
+```
 url = f'{URL}/ISAPI/Thermal/channels/2/thermometry/jpegPicWithAppendData?format=json'
 session = requests.Session()
 session.auth = HTTPDigestAuth(USR, PWD)
 response = session.get(url, stream=True)
+```
 
 摄像头返回的是 multipart 数据流，结构如下：
+
+```
 --boundary
 Content-Type: application/json      --> 图像元信息（分辨率、长度等）
 --boundary
@@ -38,6 +43,10 @@ Content-Type: image/jpeg            --> 红外图像
 Content-Type: application/octet-stream --> 温度矩阵（二进制）
 --boundary
 Content-Type: image/jpeg            --> 可见光图像
+```
 
 安装依赖：
+
+```
 pip install requests numpy opencv-python matplotlib
+```
